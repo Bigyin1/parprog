@@ -3,8 +3,8 @@ import numpy as np
 
 class Config:
 
-    K = 8  # time steps
-    M = 8  # coord steps
+    K = 40  # time steps
+    M = 40  # coord steps
 
     t_0 = np.float64(0.0)
     t_1 = np.float64(1.0)

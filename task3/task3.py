@@ -19,24 +19,24 @@ class Solver:
         self.grid = Grid(self.cfg, self.mpi)
 
     def Solve(self):
+        x_start = 0
         if self.rank == 0:
             x_start = 1
-        else:
-            x_start = 0
 
         for t in range(self.cfg.K - 1):
             for x in range(x_start, self.grid.M_i):
                 self._implicitLeftCorner(t, x)
 
+        b = np.ascontiguousarray(self.grid.grid.transpose())
+
         if self.rank == 0:
             res = np.empty((self.cfg.M, self.cfg.K), dtype=np.float64)
-            self.mpi.Gather(self.grid.grid, res, root=0)
+            self.mpi.Gather(b, res, root=0)
 
-            DrawSolution(res, self.cfg)
-            # print(res)
+            DrawSolution(res.transpose(), self.cfg)
             return
 
-        self.mpi.Gather(self.grid.grid, None, root=0)
+        self.mpi.Gather(b, None, root=0)
 
     def _implicitLeftCorner(self, t: int, x: int):
         self.grid[t + 1, x] = (
