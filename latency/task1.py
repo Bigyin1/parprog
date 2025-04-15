@@ -20,10 +20,10 @@ send_arr = np.array([1, 2, 3, 5, 6])
 start_time = time.time()
 
 if rank == 0:
-    for _ in range(10000):
+    for _ in range(100000):
         send(send_arr)
 else:
-    for _ in range(10000):
+    for _ in range(100000):
         recieve(len(send_arr))
 
 print(f"{rank}: {time.time() - start_time} seconds")

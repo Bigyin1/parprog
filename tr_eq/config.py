@@ -7,9 +7,9 @@ class Config:
     M = 40  # coord steps
 
     t_0 = np.float64(0.0)
-    t_1 = np.float64(1.0)
+    t_1 = np.float64(5.0)
     x_0 = np.float64(0.0)
-    x_1 = np.float64(1.0)
+    x_1 = np.float64(5.0)
 
     tau = (t_1 - t_0) / (K - 1)
     h = (x_1 - x_0) / (M - 1)
