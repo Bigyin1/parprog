@@ -24,8 +24,9 @@ class Solver:
             for x in range(x_start, self.grid.M_i):
                 self._rectangle(t, x)
 
-        b = np.ascontiguousarray(self.grid.npGrid.transpose())
+        self.grid.waitSendReqs()
 
+        b = np.ascontiguousarray(self.grid.npGrid.transpose())
         if self.rank == 0:
             res = np.empty((self.cfg.M, self.cfg.K), dtype=np.float64)
             self.mpi.Gather(b, res, root=0)
